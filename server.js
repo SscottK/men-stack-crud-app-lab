@@ -82,7 +82,7 @@ app.get('/cars/:id/edit', async (req, res) => {
     })
 })
 
-app.post('/cars/:id', async (req, res) => {
+app.put('/cars/:id', async (req, res) => {
     req.body.isElectric === 'on' || req.body.isElectric === true? 
     req.body.isElectric = true : 
     req.body.isElectric= false

@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Edit <%= car.model %></h1>
-  <form action="/cars/<%=car._id%>?_method=PUT" method="POST">
+  <form action="/cars/<%=car._id%>?_method=PUT" method="PUT">
     <label for="make">Make:</label>
     <input type="text" name="make" value="<%= car.make %>"/>
     <label for="model">Model:</label>

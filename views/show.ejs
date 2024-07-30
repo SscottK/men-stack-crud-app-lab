@@ -12,7 +12,7 @@
   <% } else { %>
     <p>This car is gas powered</p>
   <% } %>
-  <form action="/cars/<%= car._id%>?_method=DELETE" method="POST">
+  <form action="/cars/<%=car._id%>?_method=DELETE" method="POST">
     <button type="submit">
       Delete <%= car. make%> <%= car.model %>
     </button>
