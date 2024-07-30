@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit <%=car.model%></title>
+  <title>Edit <%= car.model %></title>
 </head>
 <body>
   <h1>Edit <%= car.model %></h1>
-  <form action="/cars" method="POST">
+  <form action="/cars/<%=car._id%>?_method=PUT" method="POST">
     <label for="make">Make:</label>
-    <input type="text" name="make" id="make" />
+    <input type="text" name="make" value="<%= car.make %>"/>
     <label for="model">Model:</label>
-    <input type="text" name="model" id="model" />
+    <input type="text" name="model" value="<%= car.model %>" />
     <label for="isElectric">Is this car Electric?</label>
     <input
       type="checkbox"
       name="isElectric"
       <% if (car.isElectric) { %>checked<% } %> 
       />
-    <button type="submit">Add Car</button>
     <button type="submit">Update Car</button>
   </form>
   <a href="/cars">Back to Cars</a>
