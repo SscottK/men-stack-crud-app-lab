@@ -26,10 +26,6 @@ mongoose.connection.on('error', () => {
 
 
 //CONTROLLER AND ROUTER LOGIG
-
-
-
-
 //CREATE
 app.post('/cars', async (req, res) => {
     req.body.isElectric === 'on' || req.body.isElectric === true? 
@@ -96,11 +92,7 @@ app.put('/cars/:id', async (req, res) => {
     }
 })
 
-
-
-
 //DELETE
-
 app.delete('/cars/:id', async (req, res) => {
     try {
         await Car.findOneAndDelete({ _id: req.params.id })
@@ -111,9 +103,5 @@ app.delete('/cars/:id', async (req, res) => {
         res.status(400).json({ msg: error.message })
     }
 })
-
-
-
-
 
 app.listen(PORT, () => { console.log('I see connected apps' + ` application accepting requests on PORT ${PORT}`) })
