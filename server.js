@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express =  require('express')
+const methodOverride = require('method-override')
 const app = express()
 const mongoose = require('mongoose')
 const MONGO_URI = process.env.MONGO_URI
@@ -7,9 +8,11 @@ const logger = require('morgan')
 const Car = require('./models/car')
 const PORT = 3000
 
+app.use(methodOverride('_method'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))//we are ablt to parse the body and accept urlencoded data which is the default form data
 app.use(logger('tiny'))
+
 
 mongoose.connect(MONGO_URI)
 
@@ -74,7 +77,6 @@ app.get('/cars/:id', async (req, res) => {
 
 
 //UPDATE
-
 app.get('/cars/:id/edit', async (req, res) => {
     const foundCar = await Car.findOne({ _id: req.params.id})
     res.render('edit.ejs', {
@@ -88,11 +90,12 @@ app.put('/cars/:id', async (req, res) => {
     req.body.isElectric= false
     try {
         const updatedCar = await Car.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })// new: true sends the updated version
-        res.status(301).redirect(`/cars/${updatedCar._id}`)
+        res.redirect(`/cars/${updatedCar._id}`)
     } catch (error) {
         res.status(400).json({ msg: error.message})
     }
 })
+
 
 
 
@@ -102,23 +105,13 @@ app.delete('/cars/:id', async (req, res) => {
     try {
         await Car.findOneAndDelete({ _id: req.params.id })
         .then((car) => {
-            res.sendstatus(204)
+            res.redirect('/cars')
         })        
     } catch (error) {
         res.status(400).json({ msg: error.message })
     }
 })
 
-app.get('/cars/:id', async (req, res) => {
-    try {
-        const foundCar = await Car.findOne({ _id: req.params.id})
-        res.render('show.ejs', {
-            car: foundCar
-        })
-    } catch (error) {
-        res.status(400).json({ msg: error.message })  
-    }
-})
 
 
 
